@@ -26,6 +26,5 @@ app.get("/",(req,res)=>{
 })
 
 app.listen(8000,()=>{
-    console.log(process.env.DB_USERNAME);
     console.log("Rocking at 8000");
 })

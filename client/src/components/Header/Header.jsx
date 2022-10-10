@@ -1,14 +1,24 @@
-import {AppBar, Toolbar, styled,Box, Typography,} from '@mui/material';
+import { Toolbar, styled,Box, Typography,} from '@mui/material';
+import { useState } from 'react';
 import CustomButton from './CutomsButtons';
 import {Link} from 'react-router-dom';
+import ActiveSearch from './ActiveSearchField';
 
 
 import Profile from './Profile';
 
 import SearchComponent from './Search'
-const StyledHeader = styled(AppBar)`
-background:var(--root-primary-color);
-position:sticky;`;
+const StyledHeader = styled('header')(({theme})=>({
+    width:'100%',
+    height:60,
+    backgroundColor:'var(--root-primary-color)',
+    position:'sticky',
+    top:0,
+    zIndex:'1111',
+    [theme.breakpoints.down('md')]:{
+        display:'flex',
+    }
+}))
 
 const Component = styled(Box)(({theme})=>({
     maxWidth:'1200px',
@@ -16,6 +26,9 @@ const Component = styled(Box)(({theme})=>({
     margin:'0 auto',
     display:'flex',
     alignItems:'center',
+    [theme.breakpoints.down('md')]:{
+        display:'flex',
+    }
 }));
 
 const Logo = styled(Typography)(({theme})=>({
@@ -29,22 +42,30 @@ const Logo = styled(Typography)(({theme})=>({
 
 
 
-const Header = ()=>{
-    return<StyledHeader>
-    <Toolbar>
-    <Component>
-    <Link style={{textDecoration:'none'}} to={'/'}>
-    <Logo>Miira<Box component='span'>Lights</Box></Logo>
-    </Link>
-    <SearchComponent />
-    
-    
-    <Profile />
-    <CustomButton/>
 
+
+const Header = ()=>{
+
+    const [search,setSearch] = useState(false)
+    return<StyledHeader className='header'>
+    {
+        search ? <ActiveSearch setSearch={setSearch}/> : <Toolbar>
+        <Component>
+        <Link style={{textDecoration:'none'}} to={'/'}>
+        <Logo>Miira<Box component='span'>Lights</Box></Logo>
+        </Link>
+        <SearchComponent setSearch={setSearch} />
+       
+        
+        
+        <Profile />
+        <CustomButton/>
     
-    </Component>
-    </Toolbar>
+        
+        </Component>
+        </Toolbar>
+    }
+    
     </StyledHeader>;
 }
 export default Header;

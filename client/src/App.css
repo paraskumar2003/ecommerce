@@ -5,4 +5,26 @@
     --root-dark-pink-color:'#FFE3FE';
     --root-light-pink-color:'#E9B5D2';
   }
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+  .header{
+            width: 100%;
+            position: sticky;
+            top: 0;
+            background-color: #006a6a;
+            height: 60px;
+            color: white;
+  }
+  body{
+    font-family: 'Poppins', sans-serif;
+  }
+  .MuiDialog-container{
+    position: fixed;
+    margin: auto;
+  }
+  .css-hz1bth-MuiDialog-container{
+    position: fixed;
+    margin: auto;
+  }
+
   

@@ -1,6 +1,7 @@
 import { Box, TextField, styled,Button } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { registerUser } from "../../service/api";
+import { DataContext } from "../../context/Dataprovider";
 
 
 const StyledTextField = styled(TextField)(({theme})=>({
@@ -37,18 +38,17 @@ const Register = ({phone,setOpen,setUser,err})=>{
   }
 
   const [register,setRegister]=useState(AccountInitialValue);
-
+  const {setAcc}=useContext(DataContext);
 
   const RegisterUser =async ()=>{
     let response = await registerUser(register);
-    console.log(response);
     if(response.data.status==='ok'){
-      console.log('ho gya register');
        setOpen(false);
-       setUser(response.data);
+       setAcc(response.data.user)
+       localStorage.setItem('miiraUser',response.data.user.phone);
+            localStorage.setItem('miiraPassword',response.data.user.password);
     }
   }
-    console.log(phone);
 return <Box>
 <StyledTextField id="standard-basic" onChange={(e)=>{setRegister({...register,[e.target.name]:e.target.value})}} name="name" label=" Enter Your Name" variant="standard"></StyledTextField>
 <StyledTextField id="standard-basic" onChange={(e)=>{setRegister({...register,[e.target.name]:e.target.value})}} name="email" label=" Enter Your Email Address" variant="standard"></StyledTextField>

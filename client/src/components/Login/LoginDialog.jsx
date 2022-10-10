@@ -7,7 +7,6 @@ import { authenticateNumber } from "../../service/api";
 import Register from "./Register";
 import { useState,useContext,useEffect } from "react";
 import { DataContext } from "../../context/Dataprovider";
-import Cookies from 'js-cookie';
 
 
 
@@ -20,6 +19,9 @@ const Image = styled(Box)(({theme})=>({
       justifyContent:'space-between',
       flexDirection:'column',
       alignItems:'flex-start',
+      [theme.breakpoints.down('md')]:{
+        display:'none',
+      }
 }));
 
 const FormWrapper = styled(Box)(({theme})=>({
@@ -30,9 +32,13 @@ const FormWrapper = styled(Box)(({theme})=>({
     display:'flex',
     flexDirection:'column',
     justifyContent:'space-between',
+    [theme.breakpoints.down('md')]:{
+        width:'100%'
+    },
+    
 }))
 
-export const StyledTextField = styled(TextField)(({theme})=>({
+const StyledTextField = styled(TextField)(({theme})=>({
     '& label.Mui-focused': {
         color: 'var(--root-primary-color)',
         opacity:'0.7',
@@ -98,7 +104,8 @@ const AccountInitialValue = {
 }
 
 const DialogBox = styled(Dialog)`
-min-width:1000px;`;
+min-width:1000px;
+width:100%;`;
 
 const loginInitialValues = {
     username:'',
@@ -120,11 +127,11 @@ const LoginError = {
 
 
 
-const LoginDialog = ({open,setOpen, setUser})=>{
+const LoginDialog = ({open,setOpen})=>{
 
-
-   
-
+    
+    
+    
 
 
     const [autoLogin,setAutoLogin] = useState(true);
@@ -137,8 +144,7 @@ const LoginDialog = ({open,setOpen, setUser})=>{
 
     const [login,setlogin] = useState(loginInitialValues);
 
-    const {acc,setAcc} = useContext(DataContext);
-
+    const {setAcc} = useContext(DataContext);
 
 
     
@@ -146,7 +152,6 @@ const LoginDialog = ({open,setOpen, setUser})=>{
     const onValueChange = (e)=>{
         setlogin({...login,[e.target.name]:e.target.value});
         setloginError(LoginError.False);
-        console.log(login)
     }
 
     const Login = async (e)=>{
@@ -154,7 +159,6 @@ const LoginDialog = ({open,setOpen, setUser})=>{
         if(response.data.data==='ok'){
             setOpen(false);
             setAutoLogin(false);
-            setUser(response.data.user);
             setAcc(response.data.user);
             localStorage.setItem('miiraUser',response.data.user.phone);
             localStorage.setItem('miiraPassword',response.data.user.password);
@@ -166,25 +170,12 @@ const LoginDialog = ({open,setOpen, setUser})=>{
     }
 
 
-   
-        useEffect(()=>{
-            if(autoLogin === true){
-                let userCookie = localStorage.getItem('miiraUser');
-                let passwordCookie = localStorage.getItem('miiraPassword')
-                if(userCookie !== null && passwordCookie !== null){
-            setlogin({username:userCookie,password:passwordCookie});
-            console.log('knock');
-            Login();
-        }
-    }
-        },[login])
-
-
 
 
 
     const VerifyUser = async (e)=>{
         let response = await authenticateNumber(mobileNo);
+        console.log(response);
         if(response.data.data==='ok'){
             setVerifyUser(response.data);
         }else if(response.data.data==='exist'){
@@ -208,7 +199,7 @@ const LoginDialog = ({open,setOpen, setUser})=>{
 
     
 
-    return<DialogBox className="login-dialog" style={{minWidth:'1200px'}} open={open} onClose={handleClose}>
+    return<DialogBox className="login-dialog" style={{minWidth:'1200px',position:'fixed',margin:'auto'}} open={open} onClose={handleClose}>
     <Box style={{display:'flex',minHeight:'500px'}}>
     <Image>
     <Box style={{margin:'5px'}}>
@@ -227,7 +218,7 @@ const LoginDialog = ({open,setOpen, setUser})=>{
     {
         loginError.error ? <StyledTextField error helperText='Please check your Mobile No/Email or password.' id="standard-basic" label=" Enter Email/Mobile No." onChange={(e)=>{onValueChange(e)}} name="username" variant="standard"></StyledTextField> : <StyledTextField id="standard-basic" label=" Enter Email/Mobile No." onChange={(e)=>{onValueChange(e)}} name="username" variant="standard"></StyledTextField>
     }
-    <StyledTextField style={{marginTop:20,}} id="standard-basic" label=" Enter Password" onChange={(e)=>{onValueChange(e)}} name="password" variant="standard"></StyledTextField>
+    <StyledTextField style={{marginTop:20,}} id="standard-basic" label=" Enter Password" type='password' onChange={(e)=>{onValueChange(e)}} name="password" variant="standard"></StyledTextField>
     <SmallText variant="H6">By continuing you agree to MiiraLights's <Box component='span' style={{color:'var(--root-primary-color)'}}>Terms of Use</Box> and <Box component='span' style={{color:'var(--root-primary-color)'}}>Privacy Policy</Box></SmallText>
     </Box>
     <RequestButtons>
@@ -241,7 +232,7 @@ const LoginDialog = ({open,setOpen, setUser})=>{
     
     </FormWrapper> : <FormWrapper>
     {
-        verifyUser.data==='ok' ? <Register setOpen={setOpen} setUser={setUser} phone={verifyUser.phone} />:
+        verifyUser.data==='ok' ? <Register setOpen={setOpen} phone={verifyUser.phone} />:
     <div><StyledTextField onChange={(e)=>{setMobileNo({phone:`${e.target.value}`})}} id="standard-basic" label=" Enter Mobile Number" variant="standard"></StyledTextField>
     <SmallText variant="H6" style={{marginTop:20}}>By continuing you agree to MiiraLights's <Box component='span' style={{color:'var(--root-primary-color)'}}>Terms of Use</Box> and <Box component='span' style={{color:'var(--root-primary-color)'}}>Privacy Policy</Box></SmallText>
     <LoginButton onClick={()=>VerifyUser()} style={{background:'var(--root-primary-color)'}} variant='contained'>CONTINUE</LoginButton>

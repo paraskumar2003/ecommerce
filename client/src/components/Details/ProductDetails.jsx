@@ -1,7 +1,14 @@
 
-import { Box, Table, TableRow,TableBody,TableCell, Typography } from "@mui/material";
+import { Box, Table, TableRow,TableBody,TableCell, Typography, styled } from "@mui/material";
 import {LocalOffer as Badge} from '@mui/icons-material';
 import { useState } from "react";
+
+const Component = styled(Box)(({theme})=>({
+    paddingLeft:10,
+    [theme.breakpoints.down('md')]:{
+        padding:'10px'
+    }
+}))
 
 
 const ProductDetails = ({product})=>{
@@ -13,7 +20,7 @@ const ProductDetails = ({product})=>{
     
 
 
-    return <Box style={{paddingLeft:10}}>
+    return <Component style={{paddingLeft:10}}>
     <Typography style={{fontSize:'1.25rem'}}>
     {product.title.longTitle}
     </Typography>
@@ -58,6 +65,6 @@ const ProductDetails = ({product})=>{
     
     </TableBody>
     </Table>
-    </Box>
+    </Component>
 }
 export default ProductDetails;

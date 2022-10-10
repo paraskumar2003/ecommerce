@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
         type:String,
     },
     cartItems:{
-        type:[Object],
+        type:[String],
     }
 })
 userSchema.plugin(passportLocalMongoose);

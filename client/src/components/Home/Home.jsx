@@ -5,7 +5,8 @@ import SlideWithAd from "./SlideWithAd";
 import Slide from "./Slide";
 import {useSelector,useDispatch} from 'react-redux';
 import {getProducts} from '../../redux/Action/productActions';
-import { useEffect } from "react";
+import { useEffect} from "react";
+import Header from "../Header/Header";
 
 
 
@@ -18,16 +19,19 @@ const Home = ()=>{
      dispatch(getProducts())
    },[dispatch])
 
- 
 
 
 
-return<Box>
+
+
+
+
+return<Box data-aos="fade-in" data-aos-delay="300">
+<Header />
 <Navbar />
 <Banner />
 <SlideWithAd products={products} title={'Deal of the day'} timer={true}/>
-<Slide products={products} title={'Best Deals for You'} timer={false} />
-<Slide products={products} title={'Recommended for You'} timer={false} />
+
 </Box>;
 }
 export default Home;

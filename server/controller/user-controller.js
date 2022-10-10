@@ -6,16 +6,15 @@ export const userlogin =async(req,res)=>{
     try{
        await User.findOne({phone:req.body.username},async(err,found)=>{
         if(found){
-          
           if ((req.body.password).length > 25){
             if(req.body.password === found.password){
               res.json({data:'ok',user:found});
             }
-          }
-          
-          const user = await bcrypt.compare(req.body.password,found.password);
+          }else{
+            const user = await bcrypt.compare(req.body.password,found.password);
           if(user){
             res.json({data:'ok',user:found});
+          }
           }
         }else{
           res.json({data:'invalid login'});
@@ -28,6 +27,7 @@ export const userlogin =async(req,res)=>{
 
 export const userVerify = async (req,res)=>{
   try{
+    console.log(req.body);
       const exist = await User.findOne({phone:req.body.phone})
       if(exist){
         res.json({data:'exist'});
@@ -36,7 +36,7 @@ export const userVerify = async (req,res)=>{
         res.json({data:'ok',phone:req.body.phone});
       }
   }catch(error){
-        console.log(error.message);
+        res.json({data:err.message});
   }
 }
 
@@ -47,8 +47,10 @@ export const userRegister = async (req,res)=>{
         name:req.body.name,
         email:req.body.email,
         password:Password,
-  });
-  res.json({status:'ok',data:req.body});
+ });
+ let user = await User.findOne({phone:req.body.phone})
+  res.json({status:'ok',user:user});
+
 }
   catch(error){
     res.json({status:error.message});

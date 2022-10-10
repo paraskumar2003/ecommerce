@@ -1,13 +1,19 @@
-import {LocalShipping as Cart,Notifications as Bell} from '@mui/icons-material';
+import {Notifications as Bell,ShoppingBag as Cart} from '@mui/icons-material';
 import { Box,styled, Button, Typography } from '@mui/material';
 import LoginDialog from '../Login/LoginDialog';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import {Link} from 'react-router-dom';
+import {DataContext} from '../../context/Dataprovider';
+import {Badge} from '@mui/material';
 
 
 const Wrapper = styled(Box)(({theme})=>({
     display:'flex',
-    width:'450px',
-    alignItems:'center'
+    alignItems:'center',
+    [theme.breakpoints.down('md')]:{
+        position:'fixed',
+        right:5
+    }
 }))
 
 const LoginButton = styled(Button)(({theme})=>({
@@ -24,7 +30,29 @@ const LoginButton = styled(Button)(({theme})=>({
 
 const SellerButton = styled(Typography)(({theme})=>({
     padding:'3px 24px',
+    color:'#fff',
+    [theme.breakpoints.down('md')]:{
+        display:'none',
+    }
 }));
+
+const CartButton = styled(Cart)(({theme})=>({
+    padding:'3px 8px',
+    marginRight:10,
+    color:'#fff',
+    [theme.breakpoints.down('md')]:{
+        fontSize:32,
+    }
+}))
+
+const BellIcon = styled(Bell)(({theme})=>({
+    padding:'3px 8px',
+    fontSize:24,
+    color:'#fff',
+    [theme.breakpoints.down('md')]:{
+        display:'none',
+    }
+}))
 
 const Username = styled(Button)`
 color:#fff;
@@ -35,24 +63,37 @@ font-size:1rem;
 
 
 const CustomButton = ()=>{
+    const [mobile,setMobile] = useState(false);
+    setInterval(()=>{const Dom = document.getElementById('root').getBoundingClientRect().width;
+    if(Dom < 768){
+        setMobile(true);
+    }
+})
     const [open,setOpen] = useState(false);
-
-    const [user,setUser] = useState({});
+    const {acc}=useContext(DataContext);
 
     const handleClick = ()=>{
         setOpen(true);
     }
-return<Wrapper>
-{
-    user.name ? <Username>{user.name}</Username> :
+ return<Wrapper>
+ {
+    acc.name ? <Username>{acc.name}</Username> :
     <LoginButton onClick={()=>handleClick()} style={{background:'#fff'}} variant='contained'>Login</LoginButton>
-}
-<SellerButton>Become a Seller</SellerButton>
-<Box style={{marginLeft:'auto'}}>
-<Cart style={{padding:'3px 8px',fontSize:24,}} />
-<Bell style={{padding:'3px 8px',fontSize:24}}/>
-</Box>
-<LoginDialog open={open} setOpen={setOpen} setUser={setUser}/>
-</Wrapper>;
-}
+ }
+ <SellerButton>Become a Seller</SellerButton>
+ <Box style={{marginLeft:'auto'}}>
+ <Link style={{color:'inherit',marginLeft:'auto'}} to={'/cart'}>
+ <CartButton />
+  </Link>
+ <BellIcon/>
+ </Box>
+ <LoginDialog open={open} setOpen={setOpen}/>
+ </Wrapper>;
+
+
+
+};
+
 export default CustomButton;
+
+    

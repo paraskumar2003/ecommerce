@@ -22,6 +22,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.MuiPaper-root{
-  min-width:700px;
+@media(min-width:768px){
+  .MuiPaper-root{
+    min-width: 700px;
+  }
+}
+
+.MuiDialog-container{
+  position: fixed;
+  margin: auto;
+  width: 100%;
+}
+.css-hz1bth-MuiDialog-container{
+  position: fixed;
+  margin: auto;
 }

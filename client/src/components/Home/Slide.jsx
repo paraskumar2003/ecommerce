@@ -2,6 +2,8 @@ import { Box, Typography, Button,styled } from "@mui/material";
 import Countdown from 'react-countdown'
 import Caraousel from 'react-multi-carousel';
 import {Link} from 'react-router-dom';
+import { useSelector } from "react-redux";
+import {useState, useEffect} from "react";
 
 const Component = styled(Box)(({theme})=>({
     backgroundColor:'#fff',
@@ -42,17 +44,27 @@ const responsive = {
       items: 5
     },
     tablet: {
-      breakpoint: { max: 1024, min: 464 },
+      breakpoint: { max: 1024, min:520 },
       items: 2
     },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
+      breakpoint: { max:520, min: 0 },
       items: 1
     }
   };
 
 
-const Slide = ({products,title,timer})=>{
+const Slide = ({title,timer})=>{
+  const { products } = useSelector(state => state.getProducts);
+
+  const [loading,setLoading] = useState(false);
+
+  useEffect(()=>{
+    if(products){
+      setLoading(true);
+    }
+  },[products]);
+
     return <Component>
     <LeftComponent>
     <SlideHead style={{display:'flex'}}>
@@ -78,7 +90,7 @@ const Slide = ({products,title,timer})=>{
   containerClass="carousel-container">
   
   {
-    products.map(product =>(
+     loading && products.map(product =>(
       <Link to={`/product/${product.id}`} style={{textDecoration:'none'}}>
       <Box textAlign='center' style={{padding:'1rem 0'}}>
       <img style={{width:130,height:130}} src={product.url} alt='product'/>

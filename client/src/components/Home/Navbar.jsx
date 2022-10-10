@@ -9,7 +9,12 @@ const Wrapper = styled(Box)(({theme})=>({
     justifyContent:'space-between',
     width:'80%',
     margin:'0 auto',
-    padding:'1rem 0 8px'
+    padding:'1rem 0 8px',
+    [theme.breakpoints.down('md')]:{
+        width:'100%',
+        overflowX:'scroll',
+
+    }
 }))
 
 const Item = styled(Box)(({theme})=>({
@@ -17,7 +22,23 @@ const Item = styled(Box)(({theme})=>({
     alignItems:'center',
     flexDirection:'column',
     justifyContent:'space-between',
+    [theme.breakpoints.down('md')]:{
+        marginRight:25,
+        width:150,
+        padding:'5px 10px',
+    }
 
+}))
+
+const Text = styled(Typography)(({theme})=>({
+    fontWeight:500,
+    textAlign:'center',
+    letterSpacing:1,fontSize:14,
+    padding:'6px 0 0',
+    color:'var(--root-primary-color)',
+    [theme.breakpoints.down('md')]:{
+        width:80,
+    }
 }))
 
 
@@ -29,7 +50,7 @@ const Navbar = ()=>{
         navbarImages.map(type =>
             <Item>
             <img style={{width:'70px',height:'70px'}} src={type.img} alt="product" />
-            <Typography style={{fontWeight:500,letterSpacing:1,fontSize:14,padding:'6px 0 0', color:'var(--root-dark-pink-color)'}}>{type.name}</Typography>
+            <Text>{type.name}</Text>
             </Item>)
      }
     </Wrapper>

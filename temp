@@ -1,0 +1,111 @@
+<Box style={{padding:'2rem 1rem 2rem 2rem'}}>
+    {products && products.map(product => <CartItem setAcc={setAcc} product={product}/>)}
+    </Box>
+
+
+    2{
+        <Toolbar>
+    <Component>
+    <Link style={{textDecoration:'none'}} to={'/'}>
+    <Logo>Miira<Box component='span'>Lights</Box></Logo>
+    </Link>
+    <SearchComponent />
+    
+    
+    <Profile />
+    <CustomButton/>
+
+    
+    </Component>
+    </Toolbar>
+    }
+
+
+    CustomButton.jsx :81{
+        <Badge  badgeContent={acc && (acc.cartItems).length} color='error'><CartButton /></Badge>
+    }
+
+    Home.jsx {
+        <Slide products={products} title={'Best Deals for You'} timer={false} />
+<Slide products={products} title={'Recommended for You'} timer={false} />
+    }
+
+
+
+    Hello mam, I just want to ask you something regarding job. May I?
+
+    Actually Ma'am, I am a MERN stack developer.I am beginner to take a job but I have learnt in MERN Development more than basics, like payment integration , authorization and authentication(Google, Facebook, & JWT ) , beautiful UI , and also an effective backend (Node.js & Express) and Api's implimentation to the backend and database( MongoDb and Firebase ) also and want to learn more about Mern Development with some seniors that's why I want to take a job as a trainee or intern full time.
+Can you please let me know if any openings for MERN developer ?
+
+Name
+Profession
+Interest
+Experience
+Projects
+
+
+Establishment 8 september 1995,
+Three Objectives
+Provide Internship and to student across all india abroad.
+To empower women.(Webinart and compaigns)
+To take care of nature (All across india)
+In India, Canada and Australia
+TO provide free education.
+
+
+Our Achievements
+We have provided 77000 internships to all across india, canada and Australia.
+Provided free wducation to more than 2 lakhs kids all across India.
+
+About Founder
+
+Shubha Motghare is the founder.
+https://www.linkedin.com/in/shobha-motghare-0a6a57238/
+
+Secretory of foundation: -(Payal Badhe)
+https://www.linkedin.com/in/payal-badhe-531756aa/
+
+
+
+Bootcamp are programs(Programming for Kids) code.org tynker roblox. minecraft mitappinventor.
+
+
+780 Directors.
+
+Non Profit Organisation
+
+
+Task1 : Updation of your linkedin profile as Hired in Suvidha Foundation as Web Developer Intern.
+Task 2 : Based on instructions given to you, write a small paragraph and give awareness about Suvidha Foundation. Post your finding on linkedin/insta.
+Task3 : Follow all pages of suvidha foundation
+insta, linkedin and fb
+Task 4:Work Diary on google SpreadSheets
+Task 5:Age Group of kids on project(6-16 Years)
+Scratch Platform, minecraft, tynker
+
+Week 2:
+Task 1: UI Design for project.
+Task 2: Implementation of the Product.
+
+Week 3:
+Fund Raising
+
+Week 4:
+Implementation and Testing.
+
+
+
+
+Bootcamp will be 2 hours.
+Tynker, MineCraft, Age (6-16)
+Country Code for all 
+000webhost
+
+
+https://www.figma.com/team_invite/redeem/2wgq9Oc9ossgeRUiL1QwCb
+
+speciality for coding.
+Social links
+
+
+

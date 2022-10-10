@@ -2,12 +2,19 @@ import { Box, Typography, Button,styled } from "@mui/material";
 import Countdown from 'react-countdown'
 import Caraousel from 'react-multi-carousel';
 import {Link} from 'react-router-dom';
+import { useSelector } from "react-redux";
+import {useState, useEffect} from "react";
+import { useDispatch } from "react-redux";
+import { getProducts } from "../../redux/Action/productActions";
 
 const Component = styled(Box)(({theme})=>({
     backgroundColor:'#fff',
-    padding:'8px 0px',
+    padding:'8px 0px 8px 16px',
     margin:'8px 8px',
-    display:'flex'
+    display:'flex',
+    [theme.breakpoints.down('md')]:{
+      flexDirection:'column',
+    }
     
 }))
 
@@ -30,10 +37,13 @@ const SlideTitle = styled(Box)(({theme})=>({
     alignItems:'center',
 }))
 const LeftComponent = styled(Box)(({theme})=>({
-width:'85%'
+width:'85%',
+[theme.breakpoints.down('md')]:{
+  width:'100%',
+}
 }))
 const RightComponent = styled(Box)(({theme})=>({
-  width:'15%'
+  width:'15%',
 }))
 const Text = styled(Typography)`
   font-size:14px;
@@ -46,17 +56,23 @@ const responsive = {
       items: 5
     },
     tablet: {
-      breakpoint: { max: 1024, min: 464 },
+      breakpoint: { max: 1024, min: 520 },
       items: 2
     },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
+      breakpoint: { max: 520, min: 0 },
       items: 1
     }
   };
 
 
-const SlideWithAd = ({products,title,timer})=>{
+const SlideWithAd = ({title,timer})=>{
+  const {loading,products} = useSelector(state => state.getProducts);
+  const dispatch = useDispatch();
+
+   useEffect(()=>{
+     dispatch(getProducts())
+   },[dispatch])
 
   const adUrl = 'https://rukminim1.flixcart.com/flap/464/708/image/633789f7def60050.jpg?q=70';
 
@@ -86,9 +102,8 @@ const SlideWithAd = ({products,title,timer})=>{
     dotListClass="custom-dot-list-style"
   itemClass="carousel-item-padding-40-px"
   containerClass="carousel-container">
-  
   {
-    products.map(product =>(
+     products && products.map(product =>(
       <Link to={`/product/${product.id}`} style={{textDecoration:'none'}}>
       <Box textAlign='center' style={{padding:'1rem 0'}}>
       <img style={{width:130,height:130}} src={product.url} alt='product'/>
